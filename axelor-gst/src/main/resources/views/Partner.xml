@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
+ 	
+   <form name="partner-form"  title="Partner" model="com.axelor.apps.base.db.Partner"
+		  onNew="action-group-base-partner-onnew"
+		  onLoad="action-group-partner-onload"
+		  onSave="action-partner-iban-check-on-save" width="large" id="gst-partner-form">
+	   <panel-include view="partner-form" from="axelor-base"/>
+		<panel name="gstDetails" title="GST Details">
+		    <field name="gstin" if="__config__.app.isApp('gst')" if-module="axelor-gst"/>
+		</panel>
+	</form>
+</object-views>
