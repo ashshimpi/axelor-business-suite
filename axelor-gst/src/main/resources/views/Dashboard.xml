@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
+	
+	
+	<dashboard title="Invoice Dashboard" name="account.invoice.dashboard.sample" width="large" id="gst-account.invoice.dashboard.sample">
+		 <dashlet action="dashlet.account.invoice.summary"   height="350" canSearch="true"/>
+		 <dashlet action="dashlet.invoiced.turnover.ytd.vs.lastyear"   height="350" canSearch="true"/>    	
+		 <dashlet action="dashlet.invoice.turnover.cust.history"   height="350" canSearch="true"/>
+		 <dashlet action="dashlet.invoice.prod.qty.sold.history"   height="350" canSearch="true"/>
+		 <dashlet action="dashlet.invoice.total.revenue.by.product"   height="350" canSearch="true"/>
+		 <dashlet action="dashlet.total.revenue.by.geo.region"   height="350" canSearch="true"/>
+		 <dashlet action="dashlet.prod.qty.suppl.invoices.last.12m" canSearch="true" height="350"/>
+		 <dashlet action="dashlet.prod.turnover.suppl.invoices.last.12m" canSearch="true" height="350"/>
+		 <dashlet action="dashlet.supplier.invoices.per.month" canSearch="true" height="350"/>
+	   	 <dashlet action="dashlet.supplier.invoices.unpaid" canSearch="true" height="350" colSpan="12"/>
+	   	 <dashlet action="dashlet.supplier.invoices.due" canSearch="true" height="350" colSpan="12"/>
+		 <dashlet action="dashlet.customer.invoices.to.collect"   height="350" canSearch="true" colSpan="12"/>
+		 <dashlet action="dashlet.invoice.sale.amount.by.month"  height="350"/>
+		 <dashlet action="dashlet.invoice.sale.amount.by.currency"  height="350"/>
+		 <dashlet action="dashlet.invoice.sale.paymentCondition.distribution"  height="350"/>
+		 <dashlet action="dashlet.invoice.purchase.amount.by.month"  height="350"/>
+		 <dashlet action="dashlet.invoice.purchase.amount.by.currency"  height="350"/>
+		 <dashlet action="dashlet.invoice.purchase.paymentCondition.distribution"  height="350"/>
+		 <dashlet action="dashlet.invoice.sale.refund.situation"   height="350"/>
+		 <dashlet action="dashlet.invoice.sale.situation"   height="350"/>   
+		 <dashlet action="dashlet.invoice.purchase.situation"   height="350"/>
+		 <dashlet action="dashlet.paymentVoucher.customer.paymentMode.distribution.nbr"   height="350" canSearch="true"/>
+		 <dashlet action="dashlet.paymentVoucher.customer.paymentMode.distribution.amount"   height="350" canSearch="true"/>
+		 <dashlet action="dashlet.paymentVoucher.customer.paymentMode.by.amount"   height="350" canSearch="true"/>
+		 <dashlet action="dashlet.invoice.per.state" height="350" canSearch="true" if="__config__.app.isApp('gst')"/>
+		 <dashlet action="dashlet.invoice.per.status.amount" height="350" canSearch="true" if="__config__.app.isApp('gst')"/>
+		 <dashlet action="dashlet.invoice.per.status.invoice_number" height="350" canSearch="true" if="__config__.app.isApp('gst')"/>
+		 <dashlet action="dashlet.invoiced.old.month.grid" height="350" canSearch="true" if="__config__.app.isApp('gst')"/>
+	</dashboard>  
+	<action-view title="Customer Per State" name="dashlet.invoice.per.state">
+	  		<view type="chart" name="chart.customer.invoice.per.state"/>
+	</action-view>
+	<action-view title="Amount Chart" name="dashlet.invoice.per.status.amount">
+	  		<view type="chart" name="chart.invoice.per.status.amount"/>
+	</action-view>
+    
+	<action-view title="No Of Invoice" name="dashlet.invoice.per.status.invoice_number">
+	  		<view type="chart" name="chart.invoice.per.status.invoice_number"/>
+	</action-view>
+	
+	<action-view name="dashlet.invoiced.old.month.grid" title="Invoice of Old Month" model="com.axelor.apps.account.db.Invoice">
+    <view type="grid" name="invoice-supplier-grid"/>
+    <domain>self.invoiceDate &lt; :date2</domain>
+    
+    <!--  <context name="_validated" expr="1"/> -->
+     <context name="date2" expr="eval:__datetime__.minusMonths(1)"/>
+    </action-view>
+   
+    
+</object-views>

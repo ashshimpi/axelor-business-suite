@@ -1,0 +1,2 @@
+importId;name;code;installOrder;description;imagePath;modules;dependsOn;sequence
+32;Gst;gst;32;Gst configuration;app-gst.png;axelor-gst;account;32

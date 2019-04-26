@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
+
+	<chart name="chart.customer.invoice.per.state" title="Customer Per State">
+    <dataset type="sql">
+    <![CDATA[
+   
+   select 
+   	count(partner.name) as partner_number,
+   	state.name as state_name
+   from 
+   	account_invoice as account 
+   left join 
+   	base_partner partner on partner.id=account.partner  
+   left join 
+   	base_address as address on partner.main_address=address.id 
+   left join 
+   	gst_state as state on address.state=state.id 
+   Group By
+   	(state.name);
+   
+    ]]>
+    </dataset>
+    <category key="state_name" type="text" title="Status"/>
+	<series key="partner_number" type="pie" title="Partner" />
+  </chart>
+  
+  	<chart name="chart.invoice.per.status.amount" title="Amount Chart">
+    	<dataset type="sql">
+    	<![CDATA[
+    	select count(id),status_select,sum(in_tax_total) as amount from account_invoice as invoice Group By(status_select)
+    	]]>
+    	</dataset>
+    	<category key="status_select" type="text" title="Status"/>
+	    <series key="amount" type="bar" title="Amount" />
+  	</chart>
+  	
+  	<chart name="chart.invoice.per.status.invoice_number" title="No Of Invoice">
+    	<dataset type="sql">
+    	<![CDATA[
+		select count(id),status_select as status from account_invoice as invoice Group By(status_select)
+    	]]>
+    	</dataset>
+    	<category key="status" type="text" title="Status"/>
+	    <series key="id" type="line" title="Id" />
+  	</chart>
+  
+</object-views>
